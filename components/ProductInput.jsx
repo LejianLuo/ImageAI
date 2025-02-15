@@ -17,12 +17,22 @@ function parseProductInput(input){
         backgrounds.push(bg);
     }
     temp=input.content;
-    while(temp.indexOf('(')!==-1){
-        let start=temp.indexOf('(');
-        let end=temp.indexOf(')');
+    while(temp.indexOf('（')!==-1){
+        let start=temp.indexOf('（');
+        console.log(start)
+        let end=temp.indexOf('）');
         let title=temp.substring(start+1,end);
         temp=temp.substring(end+1);
         titles.push(title);
+    }
+    if (titles.length===0){
+        while(temp.indexOf('(')!==-1){
+            let start=temp.indexOf('(');
+            let end=temp.indexOf(')');
+            let title=temp.substring(start+1,end);
+            temp=temp.substring(end+1);
+            titles.push(title);
+        }
     }
    
     for(let i =0;i<backgrounds.length;i++){
@@ -59,6 +69,6 @@ export default function ProductInput({output,setOutput}){
         </div>
         <PlacementSlider setOutput={setOutput} output={output}/>
         <BackgroundButton backgrounds={backgrounds} setOutput={setOutput} output={output}/>
-        <ImageCard output={output}/>
+        <ImageCard output={output} setOutput={setOutput}/>
     </>);
 }

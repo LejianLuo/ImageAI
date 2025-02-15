@@ -64,8 +64,7 @@ export default function DropImage({output,setOutput}){
         reject(error);
       };
     });
-    await res.then(value=>{setOutput({"text":output.text,"image":value});}, err=>console.log(err));
-  
+    await res.then(value=>{setOutput({...output,"image":value});}, err=>console.log(err));
   };
   
   const thumbs = files.map(file => (

@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import ImageCard from './ImageCard';
 import BackgroundButton from './BackgroundButton';
+import PlacementSlider from './PlacementSlider';
 
 function parseProductInput(input){
     let titles=[];
@@ -56,6 +57,7 @@ export default function ProductInput({output,setOutput}){
             {product?(<button className='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded' onClick={()=>analyzeImageRequest(product)}>分析商品</button>):(<button className='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded' disabled={true}>分析商品</button>)}
         
         </div>
+        <PlacementSlider setOutput={setOutput} output={output}/>
         <BackgroundButton backgrounds={backgrounds} setOutput={setOutput} output={output}/>
         <ImageCard output={output}/>
     </>);

@@ -22,7 +22,8 @@ export default function ImageCard({output,setOutput}){
             .then(blob => {
                 // Create an image element and set its source to the fetched blob
                 let src = URL.createObjectURL(blob);
-                setImages([...images,src]);
+                setImages(images=>[...images, (<img key={src} src={src} className='w-64 h-64'/>)]);
+   
                 
             })
             .catch(error => console.error('Error:', error));
@@ -37,7 +38,7 @@ export default function ImageCard({output,setOutput}){
         </div>
         <div className='flex justify-center flex-wrap'>
         {images?
-            images.map((image,index)=>(<div key={index} className='w-64 h-64'><img key={index} src={image} className='object-contain'/></div>)):(<></>)}
+            images.map(image=>image):(<></>)}
         </div>
     </div>);
 }

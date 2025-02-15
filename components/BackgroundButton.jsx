@@ -13,30 +13,19 @@ export default function BackgroundButton({backgrounds,setOutput,output}){
     function setOutputBackground(background){
         setBGSelection(background)
         setBackground(background);
-        setOutput({"text":foreground+""+background,"image":output.image});
+        setOutput({"text":background,"image":output.image});
  
     }
     function setOutputForeground(fg){
         setFGSelection(fg);
         let foregroundPrompt=`a ${fg} covers the bottom half of the image, it extends from left to right horizontally. the table is empty. `
         setForeground(foregroundPrompt);
-        setOutput({"text":foregroundPrompt+""+background,"image":output.image});
+        //setOutput({"text":foregroundPrompt+""+background,"image":output.image});
         
     }
 
     return(<div>
-        <h3 className='m-5 text-center'>前景</h3>
-        <div className='flex justify-center'>
-        {
-            foregroundTypes.map(fg=>{
-                if(isSelectedFG.includes(fg.en))
-                    return (<button className={selectedStyle} key={fg.ch} onClick={(e)=>{setOutputForeground(fg.en)}}>{fg.ch}</button>)
-                else
-                    return (<button className={unselectedStyle} key={fg.ch} onClick={(e)=>{setOutputForeground(fg.en)}}>{fg.ch}</button>)
-            }
-            )
-        }
-        </div>
+
         <h3 className='m-5 text-center'>背景</h3>
         <div className='flex justify-center'>
         {
@@ -55,3 +44,21 @@ export default function BackgroundButton({backgrounds,setOutput,output}){
         
     </div>);
 }
+
+
+/*
+        <h3 className='m-5 text-center'>前景</h3>
+        <div className='flex justify-center'>
+        {
+            foregroundTypes.map(fg=>{
+                if(isSelectedFG.includes(fg.en))
+                    return (<button className={selectedStyle} key={fg.ch} onClick={(e)=>{setOutputForeground(fg.en)}}>{fg.ch}</button>)
+                else
+                    return (<button className={unselectedStyle} key={fg.ch} onClick={(e)=>{setOutputForeground(fg.en)}}>{fg.ch}</button>)
+            }
+            )
+        }
+        </div>
+
+
+*/

@@ -8,7 +8,6 @@ function parseProductInput(input){
     let backgrounds=[];
     let combined=[];
     let temp=input.content;
-    console.log(input.content)
     while(temp.indexOf('[')!==-1){
         let start=temp.indexOf('[');
         let end=temp.indexOf(']');
@@ -19,7 +18,6 @@ function parseProductInput(input){
     temp=input.content;
     while(temp.indexOf('（')!==-1){
         let start=temp.indexOf('（');
-        console.log(start)
         let end=temp.indexOf('）');
         let title=temp.substring(start+1,end);
         temp=temp.substring(end+1);
@@ -43,7 +41,7 @@ function parseProductInput(input){
 
 
 
-export default function ProductInput({output,setOutput}){
+export default function ProductInput({output,setOutput,outputPrompts,setPrompts}){
     const [product,setProduct]=useState('');
     const [backgrounds,setBackgrounds]=useState([{"title":"", "background":""}]);
    
@@ -53,6 +51,7 @@ export default function ProductInput({output,setOutput}){
             let data = await res.json();
             let productImages=parseProductInput(data);
             setBackgrounds(productImages);
+            setPrompts([]);
             console.log(data);
             console.log(productImages);
         }
@@ -68,7 +67,7 @@ export default function ProductInput({output,setOutput}){
         
         </div>
         <PlacementSlider setOutput={setOutput} output={output}/>
-        <BackgroundButton backgrounds={backgrounds} setOutput={setOutput} output={output}/>
-        <ImageCard output={output} setOutput={setOutput}/>
+        <BackgroundButton backgrounds={backgrounds} outputPrompts={outputPrompts} setPrompts={setPrompts}/>
+       
     </>);
 }

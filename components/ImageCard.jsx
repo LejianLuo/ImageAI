@@ -1,17 +1,17 @@
 import React, {useEffect, useState} from 'react';
 
 
-export default function ImageCard({output,setOutput}){
+export default function ImageCard({output,setOutput,outputPrompts}){
     const [images,setImages]=useState([]);
-    function fetchImage() {
-        
+
+    function fetchImage(imageJSON) {
         // Fetch the image with the input as a query paramete
         fetch(`https://u565357-af23-8140419c.nmb1.seetacloud.com:8443/post-image`,{
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify(output)
+            body: JSON.stringify(imageJSON)
           })
             .then(response => {
                 if (!response.ok) throw new Error('Image not found');
@@ -28,9 +28,16 @@ export default function ImageCard({output,setOutput}){
             })
             .catch(error => console.error('Error:', error));
     }
+    function fetchImages(){
+        for(let pt in outputPrompts){
+            let out={...output};
+            out.text=outputPrompts[pt];
+            fetchImage(out);
+        }   
+    }
     return(<div>
         <div className='flex justify-center m-5'>
-            <button onClick={fetchImage} className='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded' >生成图片</button>
+            <button onClick={fetchImages} className='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded' >生成图片</button>
         </div>
         <div className="flex justify-center m-5">
             <input checked={output.circle} onChange={()=>setOutput({...output,"circle":!output.circle})}id="checked-checkbox" type="checkbox" value="" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>

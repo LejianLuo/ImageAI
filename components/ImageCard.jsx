@@ -6,6 +6,7 @@ export default function ImageCard({output,setOutput,outputPrompts}){
 
     function fetchImage(imageJSON) {
         // Fetch the image with the input as a query paramete
+        console.log(imageJSON)
         fetch(`https://u565357-af23-8140419c.nmb1.seetacloud.com:8443/post-image`,{
             method: 'POST',
             headers: {

@@ -47,7 +47,7 @@ export default function ProductInput({output,setOutput,outputPrompts,setPrompts}
    
     async function analyzeImageRequest(product){
         try{
-            let res = await fetch(`https://u565357-af23-8140419c.nmb1.seetacloud.com:8443/search/${product}`);
+            let res = await fetch(`http://119.91.49.172:6053/search/${product}`);
             let data = await res.json();
             let productImages=parseProductInput(data);
             setBackgrounds(productImages);

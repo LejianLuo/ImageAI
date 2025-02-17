@@ -12,7 +12,6 @@ export default function Home() {
       <DropImage setOutput={setOutput} output={output}/>
       <ProductInput setOutput={setOutput} output={output} outputPrompts={outputPrompts} setPrompts={setPrompts}/>
       <ImageCard output={output} setOutput={setOutput} outputPrompts={outputPrompts}/>
-      <>{console.log(outputPrompts)}</>
    </div>
   );
 }

@@ -30,8 +30,6 @@ function parseProductInput(input){
         temp=temp.substring(end+1);
         titles.push(title);
     }
-    
-   
     for(let i =0;i<backgrounds.length;i++){
         combined.push({"title":titles[i], "background":backgrounds[i]});
     }
@@ -56,6 +54,7 @@ export default function ProductInput({output,setOutput,outputPrompts,setPrompts}
                 console.log(productImages);
             }
             catch(error){
+                console.log(data);
                 console.log(error);
             }
         }

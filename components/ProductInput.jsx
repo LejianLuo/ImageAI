@@ -23,15 +23,14 @@ function parseProductInput(input){
         temp=temp.substring(end+1);
         titles.push(title);
     }
-    if (titles.length===0){
-        while(temp.indexOf('(')!==-1){
-            let start=temp.indexOf('(');
-            let end=temp.indexOf(')');
-            let title=temp.substring(start+1,end);
-            temp=temp.substring(end+1);
-            titles.push(title);
-        }
+    while(temp.indexOf('(')!==-1){
+        let start=temp.indexOf('(');
+        let end=temp.indexOf(')');
+        let title=temp.substring(start+1,end);
+        temp=temp.substring(end+1);
+        titles.push(title);
     }
+    
    
     for(let i =0;i<backgrounds.length;i++){
         combined.push({"title":titles[i], "background":backgrounds[i]});

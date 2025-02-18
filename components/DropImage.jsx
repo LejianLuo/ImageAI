@@ -42,7 +42,8 @@ export default function DropImage({output,setOutput}){
     onDrop: acceptedFiles => {
       setFiles(acceptedFiles.map(file => {
           let base64=convertToBase64(file);
-          console.log(base64);
+          while(base64.length % 4!==0)
+            base64=base64+'='
           return Object.assign(file, 
               {
                 preview: URL.createObjectURL(file),
@@ -64,7 +65,7 @@ export default function DropImage({output,setOutput}){
         reject(error);
       };
     });
-    await res.then(value=>{setOutput({...output,"image":value});}, err=>console.log(err));
+    await res.then(value=>{setOutput({...output,"image":value+'=='});}, err=>console.log(err));
   };
   
   const thumbs = files.map(file => (

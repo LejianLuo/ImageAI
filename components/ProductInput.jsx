@@ -23,6 +23,7 @@ function parseProductInput(input){
         temp=temp.substring(end+1);
         titles.push(title);
     }
+    temp=input.content;
     while(temp.indexOf('(')!==-1){
         let start=temp.indexOf('(');
         let end=temp.indexOf(')');

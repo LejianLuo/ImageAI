@@ -19,7 +19,7 @@ function parseProductInput(input){
     while(temp.indexOf('（')!==-1){
         let start=temp.indexOf('（');
         let end=temp.indexOf('）');
-        let title=temp.substring(start+1,end);
+        let title=temp.substring(start+1,end).replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
         temp=temp.substring(end+1);
         titles.push(title);
     }
@@ -27,7 +27,7 @@ function parseProductInput(input){
     while(temp.indexOf('(')!==-1){
         let start=temp.indexOf('(');
         let end=temp.indexOf(')');
-        let title=temp.substring(start+1,end);
+        let title=temp.substring(start+1,end).replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
         temp=temp.substring(end+1);
         titles.push(title);
     }
@@ -49,6 +49,12 @@ export default function ProductInput({output,setOutput,outputPrompts,setPrompts}
                 let res = await fetch(`http://119.91.49.172:6053/search/${product}`);
                 let data = await res.json();
                 let productImages=parseProductInput(data);
+                let count=0
+                while(productImages.length===0){
+                    productImages=parseProductInput(data);
+                    if(count==5)
+                    break;
+                }
                 setBackgrounds(productImages);
                 setPrompts([]);
                 console.log(data);

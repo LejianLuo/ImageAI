@@ -24,11 +24,11 @@ export default function BackgroundButton({backgrounds,outputPrompts,setPrompts})
         <div className='flex justify-center'>
         {
             backgrounds[0].title?
-            backgrounds.map(bg=>{
+            backgrounds.map((bg,index)=>{
                 if(outputPrompts.includes(bg.background))
-                    return (<button className={selectedStyle} key={bg.title} onClick={(e)=>{setOutputBackground(bg.background)}}>{bg.title}</button>)
+                    return (<button className={selectedStyle} key={bg.title+''+index} onClick={(e)=>{setOutputBackground(bg.background)}}>{bg.title}</button>)
                 else
-                    return (<button className={unselectedStyle} key={bg.title} onClick={(e)=>{setOutputBackground(bg.background)}}>{bg.title}</button>)
+                    return (<button className={unselectedStyle} key={bg.title+''+index} onClick={(e)=>{setOutputBackground(bg.background)}}>{bg.title}</button>)
             }
             )
             :

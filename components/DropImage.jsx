@@ -1,6 +1,6 @@
 import {useDropzone} from 'react-dropzone';
 import React, {useEffect, useState} from 'react';
-
+import imageCompression from 'browser-image-compression';
 
 
 const thumb = {
@@ -36,14 +36,16 @@ export default function DropImage({output,setOutput}){
   const [files, setFiles] = useState([]);
   const {acceptedFiles,getRootProps, getInputProps} = useDropzone({
     accept: {
-      'image/*': []
+      'image/png': ['.png'],
+      'image/jpg': ['.jpg'],
+      'image/jpeg': ['.jpeg'],
     },
     maxFiles:1,
     onDrop: acceptedFiles => {
       setFiles(acceptedFiles.map(file => {
+
           let base64=convertToBase64(file);
-          while(base64.length % 4!==0)
-            base64=base64+'='
+          console.log(acceptedFiles[0])
           return Object.assign(file, 
               {
                 preview: URL.createObjectURL(file),
@@ -55,9 +57,10 @@ export default function DropImage({output,setOutput}){
   });
 
   async function convertToBase64(file){
-    let res = new Promise((resolve, reject) => {
+      let jpg =await convertPngToJpeg(file);
+      let res = new Promise((resolve, reject) => {
       const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
+      fileReader.readAsDataURL(jpg);
       fileReader.onload = () => {
         resolve(fileReader.result.substring(23));
       };
@@ -65,9 +68,27 @@ export default function DropImage({output,setOutput}){
         reject(error);
       };
     });
-    await res.then(value=>{setOutput({...output,"image":value+'=='});}, err=>console.log(err));
+    await res.then(value=>{setOutput({...output,"image":value});}, err=>console.log(err));
   };
+
+
+  async function convertPngToJpeg(file) {
+    const options = {
+      fileType: 'image/jpeg',  // force output to JPEG
+      useWebWorker: true       // improves performance
+    };
   
+    try {
+      const compressedFile = await imageCompression(file, options);
+      console.log(compressedFile)
+      return compressedFile;
+  
+    } catch (error) {
+      console.error('Image conversion error:', error);
+      throw error;
+    }
+  }
+
   const thumbs = files.map(file => (
     <div style={thumb} key={file.name}>
       <div style={thumbInner}>

@@ -49,6 +49,7 @@ export default function ProductInput({output,setOutput,outputPrompts,setPrompts}
                 let res = await fetch(`http://119.91.49.172:6053/search/${product}`);
                 let data = await res.json();
                 let productImages=parseProductInput(data);
+                //process data multiple times in the rare case of failure
                 let count=0
                 while(productImages.length===0){
                     productImages=parseProductInput(data);

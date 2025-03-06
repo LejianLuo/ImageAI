@@ -5,7 +5,7 @@ import React, {useEffect, useState} from 'react';
 import ImageCard from "@/components/ImageCard";
 
 export default function Home() {
-  const [output,setOutput]=useState({"text":"","image":"","position":{"x":30,"y":70,"scale":0.5},"circle":false},)
+  const [output,setOutput]=useState({"text":"","image":"","position":{"x":30,"y":70,"scale":0.5},"style":'none'},)
   const [outputPrompts,setPrompts]=useState([])
   return (
    <div>
